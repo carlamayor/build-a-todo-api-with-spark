@@ -67,7 +67,7 @@ public class Sql2oTodoDao implements TodoDao {
     @Override
     public Todo findById(int id) {
         try(Connection con = sql2o.open()){
-            return con.createQuery("SELECT * FROM todos WHERE id = :id")
+            return con.createQuery("SELECT id, name, is_completed AS isCompleted  FROM todos WHERE id = :id")
                     .addParameter("id", id)
                     .executeAndFetchFirst(Todo.class);
 
