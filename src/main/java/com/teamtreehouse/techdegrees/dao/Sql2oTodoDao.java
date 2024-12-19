@@ -19,7 +19,7 @@ public class Sql2oTodoDao implements TodoDao {
 
     @Override
     public void createTodo(Todo todo) throws DaoException {
-        String sql = "INSERT INTO todos(name, is_completed) VALUES (:name, :isCompleted)";
+        String sql = "INSERT INTO todos(name, is_completed) VALUES (:name, :is_completed)";
         try (Connection con = sql2o.open()) {
             int id = (int) con.createQuery(sql)
                     .addParameter("name", todo.getName())
@@ -35,7 +35,7 @@ public class Sql2oTodoDao implements TodoDao {
 
     @Override
     public void updateTodo(Todo todo) {
-        String sql = "UPDATE todos SET name = :name, is_completed = :isCompleted WHERE id = :id";
+        String sql = "UPDATE todos SET name = :name, is_completed = :is_completed WHERE id = :id";
         try (Connection con = sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("name", todo.getName())
