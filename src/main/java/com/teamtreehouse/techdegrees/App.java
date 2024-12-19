@@ -55,8 +55,6 @@ public class App {
                 }, gson::toJson);
 
 
-
-
         put("/api/v1/todos/:id", "application/json" ,(req, res) -> {
             int id = Integer.parseInt(req.params("id"));
             Todo originalTodo = todoDao.findById(id);
@@ -75,6 +73,11 @@ public class App {
 
         delete("/api/v1/todos/:id","application/json" , (req, res) -> {
             int id = Integer.parseInt(req.params("id"));
+            Todo todo = todoDao.findById(id);
+            if (todo == null) {
+                res.status(404);
+                return "No todo found.";
+            }
             todoDao.deleteTodo(id);
             res.status(204);
             return "";
